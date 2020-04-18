@@ -19,3 +19,8 @@ Route::resource('/tasks', 'TasksController');
 // Route::post('/tasks/store', 'TasksController@store');
 
 
+
+Auth::routes();
+
+Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+Route::get('/logout', 'Auth\LogoutController@logout')->name('logout');

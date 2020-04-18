@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Task;
+use Illuminate\Support\Facades\Auth;
 
 class TasksController extends Controller
 {
@@ -14,7 +15,7 @@ class TasksController extends Controller
      */
     public function index()
     {   
-        $tasks = Task::orderBy('created_at', 'desc')->get();
+        $tasks = Task::orderBy('created_at', 'desc')->where('author', Auth::user()->name)->get();
         return view('welcome')->with('tasks', $tasks);
     }
 
@@ -40,6 +41,7 @@ class TasksController extends Controller
         $body = $request->body;
 
         $task->body = $body;
+        $task->author = Auth::user()->name;
         if(count(explode(' ', $body)) >= 2){
             $task->save();
             return redirect('/')->with('success','Task is added!');
