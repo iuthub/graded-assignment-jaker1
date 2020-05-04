@@ -13,6 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'TasksController@index');
+
+Route::resource('/tasks', 'TasksController');
+// Route::post('/tasks/store', 'TasksController@store');
+
+
+
+Auth::routes();
+
+Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+Route::get('/logout', 'Auth\LogoutController@logout')->name('logout');
